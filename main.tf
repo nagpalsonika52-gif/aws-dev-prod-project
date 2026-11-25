@@ -48,3 +48,43 @@ output "dev_public_ip" {
 output "prod_public_ip" {
   value = aws_instance.prod_server.public_ip
 }
+
+# RDS Database Configuration
+
+resource "aws_db_instance" "my_rds" {
+
+  identifier = "my-project-rds"
+
+  allocated_storage = 20
+
+  storage_type = "gp3"
+
+  engine = "mysql"
+
+  engine_version = "8.0"
+
+  instance_class = "db.t3.micro"
+
+  db_name = "mydatabase"
+
+  username = "admin"
+
+  password = var.db_password
+
+  publicly_accessible = false
+
+  skip_final_snapshot = true
+
+  tags = {
+    Name = "My-RDS-Database"
+  }
+}
+
+variable "db_password" {
+  description = "RDS database password"
+  type        = string
+  sensitive   = true
+}
+
+$env:TF_VAR_db_password="YourStrongPassword123!"
+
