@@ -79,12 +79,8 @@ resource "aws_db_instance" "my_rds" {
     Name = "My-RDS-Database"
   }
 }
-
 variable "db_password" {
   description = "RDS database password"
   type        = string
   sensitive   = true
 }
-
-$env:TF_VAR_db_password="YourStrongPassword123!"
-
